@@ -1,8 +1,19 @@
-const express = require('express');
-   const { registerUser, loginUser } = require('../controllers/userController');
-   const router = express.Router();
+// Импортируем необходимые модули
+const express = require('express'); // Библиотека для создания веб-приложений
+const { registerUser, loginUser } = require('../controllers/userController'); // Импортируем обработчики для регистрации и логина пользователей
 
-   router.post('/register', registerUser);
-   router.post('/login', loginUser);
+// Создаем новый экземпляр роутера
+const router = express.Router();
 
-   module.exports = router;
+/**
+ * Определяем маршруты для регистрации и аутентификации пользователей.
+ */
+
+// Маршрут для регистрации пользователя
+router.post('/register', registerUser); // Обработчик для регистрации, вызывается при POST-запросе на /register
+
+// Маршрут для аутентификации пользователя
+router.post('/login', loginUser); // Обработчик для логина, вызывается при POST-запросе на /login
+
+// Экспортируем роутер для использования в других модулях
+module.exports = router;

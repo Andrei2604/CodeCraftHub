@@ -1,16 +1,28 @@
-const express = require('express');
-   const connectDB = require('./config/db');
-   const userRoutes = require('./routes/userRoutes');
-   const dotenv = require('dotenv');
+// Импортируем необходимые модули
+const express = require('express'); // Библиотека для создания веб-приложений на Node.js
+const connectDB = require('./config/db'); // Функция для подключения к базе данных
+const userRoutes = require('./routes/userRoutes'); // Роуты для работы с пользователями
+const dotenv = require('dotenv'); // Библиотека для работы с переменными окружения
 
-   dotenv.config();
-   const app = express();
+// Загружаем переменные окружения из файла .env
+dotenv.config();
 
-   connectDB();
-   app.use(express.json());
-   app.use('/api/users', userRoutes);
+// Создаем экземпляр приложения Express
+const app = express();
 
-   const PORT = process.env.PORT || 5000;
-   app.listen(PORT, () => {
-       console.log(`Server running on port ${PORT}`);
-   });
+// Подключаемся к базе данных
+connectDB();
+
+// Middleware для парсинга JSON в теле запросов
+app.use(express.json());
+
+// Определяем маршруты для работы с пользователями
+app.use('/api/users', userRoutes); // Все маршруты, начинающиеся с /api/users, обрабатываются userRoutes
+
+// Определяем порт, на котором будет работать сервер
+const PORT = process.env.PORT || 5000;
+
+// Запускаем сервер и слушаем указанный порт
+app.listen(PORT, () => {
+    console.log(`Server running on port ${PORT}`); // Выводим сообщение о запуске сервера
+});
